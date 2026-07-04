@@ -7,6 +7,16 @@
     --text-muted: #94a3b8;
     --accent: #38bdf8;
     --glass: rgba(30, 41, 59, 0.7);
+    --transition: all 0.3s ease;
+}
+
+[data-theme="light"] {
+    --bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --accent: #0284c7;
+    --glass: rgba(255, 255, 255, 0.8);
 }
 
 * {
@@ -21,7 +31,8 @@ body {
     color: var(--text);
     min-height: 100vh;
     padding: 2rem 1rem;
-    background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+    background-image: radial-gradient(circle at top right, var(--card-bg) 0%, var(--bg) 100%);
+    transition: var(--transition);
 }
 
 .container {
@@ -32,6 +43,71 @@ body {
 header {
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    gap: 0.5rem;
+}
+
+.theme-switch-wrapper em {
+    font-style: normal;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 44px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 16px;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }
 
 h1 {
@@ -50,11 +126,11 @@ p.subtitle {
 .controls {
     display: flex;
     justify-content: center;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-button#refresh-btn {
-    background-color: var(--primary);
+button#refresh-btn, .secondary-btn {
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -68,10 +144,26 @@ button#refresh-btn {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-button#refresh-btn:hover {
-    background-color: var(--primary-dark);
+button#refresh-btn {
+    background-color: var(--primary);
+}
+
+.secondary-btn {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+button#refresh-btn:hover, .secondary-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+button#refresh-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.secondary-btn:hover {
+    background-color: #2d3748;
 }
 
 button#refresh-btn:active {
@@ -100,10 +192,10 @@ button#refresh-btn:active {
 .release-card {
     background: var(--glass);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.1);
     padding: 1.5rem;
     border-radius: 16px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: var(--transition);
     position: relative;
     overflow: hidden;
 }
@@ -132,8 +224,13 @@ button#refresh-btn:active {
     margin-bottom: 1.5rem;
 }
 
-.tweet-btn {
-    background: #1DA1F2;
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.tweet-btn, .copy-btn {
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -145,8 +242,21 @@ button#refresh-btn:active {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    transition: background 0.2s ease;
+}
+
+.tweet-btn {
+    background: #1DA1F2;
 }
 
 .tweet-btn:hover {
     background: #1a91da;
+}
+
+.copy-btn {
+    background: #4a5568;
+}
+
+.copy-btn:hover {
+    background: #2d3748;
 }
