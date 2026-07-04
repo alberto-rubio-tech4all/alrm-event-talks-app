@@ -21,6 +21,11 @@
             </div>
             <h1>BigQuery Releases</h1>
             <p class="subtitle">Latest updates and feature announcements</p>
+            
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="Search releases (e.g. Security, SQL, Storage)..." />
+                <div class="search-icon">🔍</div>
+            </div>
         </header>
 
         <div class="controls">
@@ -37,6 +42,9 @@
             <!-- Releases will be loaded here -->
         </div>
     </div>
+
+    <button id="back-to-top" title="Go to top">↑</button>
+    <div id="toast-container"></div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
